@@ -39,13 +39,13 @@ export default function SignIn() {
   };
 
   return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
+    <Card className="w-full max-w-md shadow-lg">
+      <CardHeader className="bg-primary text-primary-foreground rounded-t-lg">
         <CardTitle className="text-2xl font-bold text-center">
           Sign In
         </CardTitle>
       </CardHeader>
-      <CardContent>
+      <CardContent className="pt-6">
         <form onSubmit={handleSignIn} className="space-y-4">
           <Input
             type="email"
@@ -53,6 +53,7 @@ export default function SignIn() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Email"
             required
+            className="bg-muted"
           />
           <Input
             type="password"
@@ -60,8 +61,12 @@ export default function SignIn() {
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Password"
             required
+            className="bg-muted"
           />
-          <Button type="submit" className="w-full">
+          <Button
+            type="submit"
+            className="w-full bg-secondary text-secondary-foreground hover:bg-secondary/90"
+          >
             Sign In
           </Button>
         </form>
@@ -70,7 +75,7 @@ export default function SignIn() {
         <Button
           onClick={handleGoogleSignIn}
           variant="outline"
-          className="w-full"
+          className="w-full border-accent text-accent-foreground hover:bg-accent hover:text-accent-foreground"
         >
           Sign In with Google
         </Button>

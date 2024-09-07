@@ -1,8 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebase";
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "../../firebase";
 import { useRouter } from "next/navigation";
 
 export default function Register() {
@@ -17,6 +17,15 @@ export default function Register() {
       router.push("/");
     } catch (error) {
       console.error("Error registering user:", error);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithPopup(auth, googleProvider);
+      router.push("/");
+    } catch (error) {
+      console.error("Error signing in with Google:", error);
     }
   };
 
@@ -40,6 +49,7 @@ export default function Register() {
         />
         <button type="submit">Register</button>
       </form>
+      <button onClick={handleGoogleSignIn}>Sign In with Google</button>
     </div>
   );
 }

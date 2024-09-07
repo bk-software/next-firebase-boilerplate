@@ -10,7 +10,7 @@ import {
   doc,
 } from "firebase/firestore";
 import { signOut } from "firebase/auth";
-import { db, auth } from "../../firebase";
+import { db, auth } from "@/app/firebase";
 import { useRouter } from "next/navigation";
 
 interface Todo {

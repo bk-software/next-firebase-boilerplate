@@ -1,22 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
-import { auth, googleProvider } from "../../firebase";
+import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { auth, googleProvider } from "@/app/firebase";
 import { useRouter } from "next/navigation";
 
-export default function SignIn() {
+export default function Register() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const router = useRouter();
 
-  const handleSignIn = async (e: React.FormEvent) => {
+  const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await createUserWithEmailAndPassword(auth, email, password);
       router.push("/");
     } catch (error) {
-      console.error("Error signing in:", error);
+      console.error("Error registering user:", error);
     }
   };
 
@@ -31,8 +31,8 @@ export default function SignIn() {
 
   return (
     <div>
-      <h2>Sign In</h2>
-      <form onSubmit={handleSignIn}>
+      <h2>Register</h2>
+      <form onSubmit={handleRegister}>
         <input
           type="email"
           value={email}
@@ -47,7 +47,7 @@ export default function SignIn() {
           placeholder="Password"
           required
         />
-        <button type="submit">Sign In</button>
+        <button type="submit">Register</button>
       </form>
       <button onClick={handleGoogleSignIn}>Sign In with Google</button>
     </div>

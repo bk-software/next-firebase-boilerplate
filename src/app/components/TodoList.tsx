@@ -12,6 +12,14 @@ import {
 import { signOut } from "firebase/auth";
 import { db, auth } from "@/app/firebase";
 import { useRouter } from "next/navigation";
+import { Button } from "../../components/ui/button";
+import { Input } from "../../components/ui/input";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "../../components/ui/card";
 
 interface Todo {
   id: string;
@@ -66,26 +74,42 @@ export default function TodoList() {
   };
 
   return (
-    <div>
-      <h1>Todo List</h1>
-      <button onClick={handleSignOut}>Sign Out</button>
-      <form onSubmit={addTodo}>
-        <input
-          type="text"
-          value={newTodo}
-          onChange={(e) => setNewTodo(e.target.value)}
-          placeholder="Add a new todo"
-        />
-        <button type="submit">Add</button>
-      </form>
-      <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>
-            {todo.text}
-            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
-          </li>
-        ))}
-      </ul>
-    </div>
+    <Card className="w-full max-w-md">
+      <CardHeader>
+        <CardTitle className="text-2xl font-bold">Todo List</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={addTodo} className="flex space-x-2 mb-4">
+          <Input
+            type="text"
+            value={newTodo}
+            onChange={(e) => setNewTodo(e.target.value)}
+            placeholder="Add a new todo"
+            className="flex-grow"
+          />
+          <Button type="submit">Add</Button>
+        </form>
+        <ul className="space-y-2">
+          {todos.map((todo) => (
+            <li
+              key={todo.id}
+              className="flex items-center justify-between bg-gray-100 p-2 rounded"
+            >
+              <span>{todo.text}</span>
+              <Button
+                variant="destructive"
+                size="sm"
+                onClick={() => deleteTodo(todo.id)}
+              >
+                Delete
+              </Button>
+            </li>
+          ))}
+        </ul>
+        <Button onClick={handleSignOut} className="mt-4 w-full">
+          Sign Out
+        </Button>
+      </CardContent>
+    </Card>
   );
 }

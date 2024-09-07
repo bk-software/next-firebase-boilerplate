@@ -4,6 +4,15 @@ import { useState } from "react";
 import { createUserWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "@/app/firebase";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+  CardFooter,
+} from "@/components/ui/card";
 
 export default function Register() {
   const [email, setEmail] = useState("");
@@ -30,26 +39,42 @@ export default function Register() {
   };
 
   return (
-    <div>
-      <h2>Register</h2>
-      <form onSubmit={handleRegister}>
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-        />
-        <button type="submit">Register</button>
-      </form>
-      <button onClick={handleGoogleSignIn}>Sign In with Google</button>
-    </div>
+    <Card className="w-full max-w-md">
+      <CardHeader>
+        <CardTitle className="text-2xl font-bold text-center">
+          Register
+        </CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleRegister} className="space-y-4">
+          <Input
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Email"
+            required
+          />
+          <Input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password"
+            required
+          />
+          <Button type="submit" className="w-full">
+            Register
+          </Button>
+        </form>
+      </CardContent>
+      <CardFooter>
+        <Button
+          onClick={handleGoogleSignIn}
+          variant="outline"
+          className="w-full"
+        >
+          Sign In with Google
+        </Button>
+      </CardFooter>
+    </Card>
   );
 }
